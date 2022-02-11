@@ -49,4 +49,7 @@ dependencies {
 
     // Fragment
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
+
+    // Koin
+    implementation "io.insert-koin:koin-android:$koin_version"
 }
