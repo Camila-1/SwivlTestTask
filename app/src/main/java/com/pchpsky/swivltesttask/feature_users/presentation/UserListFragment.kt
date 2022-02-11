@@ -1,22 +1,22 @@
-package com.pchpsky.swivltesttask.feature_user_details.presentation
+package com.pchpsky.swivltesttask.feature_users.presentation
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.pchpsky.swivltesttask.databinding.FragmentUserlistBinding
+import com.pchpsky.swivltesttask.R
+import com.pchpsky.swivltesttask.databinding.FragmentUserListBinding
 
-class UserListFragment : Fragment() {
+class UserListFragment : Fragment(R.layout.fragment_user_list) {
 
     companion object {
-        fun newInstance(param1: String, param2: String) =
-            UserListFragment().apply {
-                arguments = Bundle().apply {}
-            }
+        fun newInstance() = UserListFragment().apply {
+            arguments = Bundle().apply {}
+        }
     }
 
-    private var binding: FragmentUserlistBinding? = null
+    private var binding: FragmentUserListBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,13 +27,14 @@ class UserListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        binding = FragmentUserListBinding.inflate(inflater, container, false)
+        binding?.root
 
-        binding = FragmentUserlistBinding.inflate(inflater, container, false)
         return binding?.root!!
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
+//        binding = null
     }
 }

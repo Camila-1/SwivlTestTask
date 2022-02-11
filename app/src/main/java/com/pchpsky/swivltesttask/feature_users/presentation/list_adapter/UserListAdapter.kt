@@ -1,10 +1,10 @@
-package com.pchpsky.swivltesttask.feature_user_details.presentation.list_adapter
+package com.pchpsky.swivltesttask.feature_users.presentation.list_adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.pchpsky.swivltesttask.databinding.ItemUserBinding
-import com.pchpsky.swivltesttask.feature_user_details.domain.model.User
+import com.pchpsky.swivltesttask.core.domain.model.User
 
 class UserListAdapter(private val users: List<User>) : RecyclerView.Adapter<UserListAdapter.UsersViewHolder>() {
 

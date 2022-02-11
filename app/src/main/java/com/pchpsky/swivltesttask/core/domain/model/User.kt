@@ -1,4 +1,4 @@
-package com.pchpsky.swivltesttask.feature_user_details.domain.model
+package com.pchpsky.swivltesttask.core.domain.model
 
 data class User(
     val id: Int,
