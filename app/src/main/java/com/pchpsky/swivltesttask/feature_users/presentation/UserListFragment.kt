@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.pchpsky.swivltesttask.R
 import com.pchpsky.swivltesttask.databinding.FragmentUserListBinding
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserListFragment : Fragment(R.layout.fragment_user_list) {
 
@@ -35,6 +36,6 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
 
     override fun onDestroyView() {
         super.onDestroyView()
-//        binding = null
+        binding = null
     }
 }
