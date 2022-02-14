@@ -3,6 +3,7 @@
 buildscript {
     ext.fragment_version = "1.4.1"
     ext.koin_version= "3.1.5"
+    ext.retrofit_version = "2.9.0"
 }
 
 plugins {

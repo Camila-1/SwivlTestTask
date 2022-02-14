@@ -4,5 +4,5 @@ import com.pchpsky.swivltesttask.core.domain.model.User
 
 interface UsersRepository {
 
-    fun gerUsers() : List<User>
+    suspend fun gerUsers() : List<User>
 }

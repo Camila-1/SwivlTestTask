@@ -5,7 +5,7 @@ import com.pchpsky.swivltesttask.feature_users.domain.repository.UsersRepository
 
 class GetUsers(private val repository: UsersRepository) {
 
-    operator fun invoke(): List<User> {
+    suspend operator fun invoke(): List<User> {
         return repository.gerUsers()
     }
 }
