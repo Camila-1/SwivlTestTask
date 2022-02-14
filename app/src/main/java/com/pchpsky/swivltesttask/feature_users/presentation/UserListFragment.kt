@@ -12,6 +12,7 @@ import com.pchpsky.swivltesttask.databinding.FragmentUserListBinding
 import com.pchpsky.swivltesttask.feature_users.presentation.list_adapter.UserListAdapter
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserListFragment : Fragment(R.layout.fragment_user_list) {
@@ -44,11 +45,16 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        lifecycleScope.launchWhenStarted {
+        lifecycleScope.launch {
             viewModel.users.collect {
                 binding?.userList?.layoutManager = LinearLayoutManager(requireContext())
                 binding?.userList?.adapter = UserListAdapter(it)
+                binding?.swipeRefresh?.isRefreshing = false
             }
+        }
+
+        binding?.swipeRefresh?.setOnRefreshListener {
+            viewModel.onEvent(UsersEvent.Refresh)
         }
     }
 

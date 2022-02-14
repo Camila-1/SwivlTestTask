@@ -1,5 +1,6 @@
 package com.pchpsky.swivltesttask.feature_users.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.pchpsky.swivltesttask.core.domain.model.User
@@ -19,12 +20,13 @@ class UsersViewModelImpl(private val usersUseCases: UsersUseCases) : ViewModel()
 
     override fun onEvent(event: UsersEvent) {
         when(event) {
-            is UsersEvent.Update -> {}
+            is UsersEvent.Refresh -> { getUsers() }
             is UsersEvent.LoadNew -> {}
         }
     }
 
     private fun getUsers() {
+        _users.value = emptyList()
         viewModelScope.launch {
             _users.value = usersUseCases.getUsers()
         }
