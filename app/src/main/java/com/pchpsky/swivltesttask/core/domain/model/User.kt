@@ -1,9 +1,10 @@
 package com.pchpsky.swivltesttask.core.domain.model
 
-data class User(
-    val id: Int,
-    val login: String,
-    val url: String,
-    val avatarUrl: String,
+import com.squareup.moshi.Json
 
+data class User(
+    @field: Json(name = "id") val id: Int,
+    @field: Json(name = "login") val login: String,
+    @field: Json(name = "url") val url: String,
+    @field: Json(name = "avatar_url") val avatarUrl: String,
 )

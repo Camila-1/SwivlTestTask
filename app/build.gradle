@@ -56,4 +56,7 @@ dependencies {
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-moshi:2.4.0"
+
+    // Picasso
+    implementation 'com.squareup.picasso:picasso:2.71828'
 }
