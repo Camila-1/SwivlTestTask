@@ -5,8 +5,13 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.pchpsky.swivltesttask.R
 import com.pchpsky.swivltesttask.databinding.FragmentUserListBinding
+import com.pchpsky.swivltesttask.feature_users.presentation.list_adapter.UserListAdapter
+import kotlinx.coroutines.InternalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserListFragment : Fragment(R.layout.fragment_user_list) {
@@ -17,6 +22,7 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
         }
     }
 
+    private val viewModel: UsersViewModelImpl by viewModel()
     private var binding: FragmentUserListBinding? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,6 +38,18 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
         binding?.root
 
         return binding?.root!!
+    }
+
+    @OptIn(InternalCoroutinesApi::class)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        lifecycleScope.launchWhenStarted {
+            viewModel.users.collect {
+                binding?.userList?.layoutManager = LinearLayoutManager(requireContext())
+                binding?.userList?.adapter = UserListAdapter(it)
+            }
+        }
     }
 
     override fun onDestroyView() {
