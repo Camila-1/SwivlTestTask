@@ -2,9 +2,10 @@ package com.pchpsky.swivltesttask.feature_users.data.data_source.network
 
 import com.pchpsky.swivltesttask.core.domain.model.User
 import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface UsersNetworkClient {
 
     @GET("users")
-    suspend fun users(): List<User>
+    suspend fun users(@Query("?page")page: Int, @Query("per_page") pageSize: Int): List<User>
 }
