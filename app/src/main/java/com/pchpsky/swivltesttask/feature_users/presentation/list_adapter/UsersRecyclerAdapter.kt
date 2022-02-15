@@ -10,7 +10,7 @@ import com.pchpsky.swivltesttask.core.domain.model.User
 import com.pchpsky.swivltesttask.databinding.ItemUserBinding
 import com.squareup.picasso.Picasso
 
-class UserListAdapter() : PagingDataAdapter<User, UserListAdapter.UsersViewHolder>(UserComparator) {
+class UsersRecyclerAdapter : PagingDataAdapter<User, UsersRecyclerAdapter.UsersViewHolder>(UserComparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder {
         val binding = ItemUserBinding

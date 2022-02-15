@@ -21,7 +21,7 @@ class UsersPagingSource(private val networkClient: UsersNetworkClient) : PagingS
             val users = networkClient.users(pageIndex, params.loadSize)
             LoadResult.Page(
                 data = users,
-                prevKey = null,
+                prevKey = if (pageIndex == 1) null else pageIndex - 1,
                 nextKey = pageIndex + 1
             )
         } catch (exception: Exception) {

@@ -10,12 +10,12 @@ import com.pchpsky.swivltesttask.feature_users.domain.repository.UsersRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-class UsersRepositoryImpl(private val pagingSource: UsersPagingSource) : UsersRepository {
+class UsersRepositoryImpl(private val networkClient: UsersNetworkClient) : UsersRepository {
 
     override suspend fun gerUsers(): Flow<PagingData<User>> {
         return Pager(
             config = PagingConfig(pageSize = 20),
-            pagingSourceFactory = { pagingSource }
+            pagingSourceFactory = { UsersPagingSource(networkClient) }
         ).flow
     }
 }

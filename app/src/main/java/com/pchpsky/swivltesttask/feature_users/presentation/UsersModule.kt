@@ -9,8 +9,8 @@ import org.koin.dsl.module
 
 val usersModule = module{
 
-    single<UsersRepository> { UsersRepositoryImpl(get()) }
-    single { GetUsers(get()) }
+    factory<UsersRepository> { UsersRepositoryImpl(get()) }
+    factory { GetUsers(get()) }
     factory { UsersUseCases(get()) }
 
     viewModel { UsersViewModelImpl(get()) }

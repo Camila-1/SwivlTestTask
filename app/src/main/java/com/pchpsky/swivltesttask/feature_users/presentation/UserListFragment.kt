@@ -9,7 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pchpsky.swivltesttask.R
 import com.pchpsky.swivltesttask.databinding.FragmentUserListBinding
-import com.pchpsky.swivltesttask.feature_users.presentation.list_adapter.UserListAdapter
+import com.pchpsky.swivltesttask.feature_users.presentation.list_adapter.UsersRecyclerAdapter
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -24,7 +24,9 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
     }
 
     private val viewModel: UsersViewModelImpl by viewModel()
-    private var binding: FragmentUserListBinding? = null
+    private var _binding: FragmentUserListBinding? = null
+    private val binding get() = _binding!!
+    private val adapter = UsersRecyclerAdapter()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,33 +36,38 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        binding = FragmentUserListBinding.inflate(inflater, container, false)
-        binding?.root
-
-        return binding?.root!!
+    ): View {
+        _binding = FragmentUserListBinding.inflate(inflater, container, false)
+        return binding.root
     }
+
 
     @OptIn(InternalCoroutinesApi::class)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding?.userList?.layoutManager = LinearLayoutManager(requireContext())
+        binding.userList.layoutManager = LinearLayoutManager(requireContext())
+
+        binding.userList.adapter = adapter
         lifecycleScope.launch {
             viewModel.users.collectLatest {
-                val adapter = UserListAdapter()
-                binding?.userList?.adapter = adapter
                 adapter.submitData(it)
-                binding?.swipeRefresh?.isRefreshing = false
+                binding.swipeRefresh.isRefreshing = false
             }
         }
 
-        binding?.swipeRefresh?.setOnRefreshListener {
-            viewModel.onEvent(UsersEvent.Refresh)
+        binding.swipeRefresh.setOnRefreshListener {
+            adapter.refresh()
         }
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+
+
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
-        binding = null
+        _binding = null
     }
 }
