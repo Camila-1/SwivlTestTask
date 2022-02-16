@@ -12,7 +12,7 @@ class MainActivity : AppCompatActivity() {
 
         supportFragmentManager.commit {
             setReorderingAllowed(true)
-            add(R.id.fragment_container, UserListFragment.newInstance())
+            replace(R.id.fragment_container, UserListFragment.newInstance())
         }
     }
 }
