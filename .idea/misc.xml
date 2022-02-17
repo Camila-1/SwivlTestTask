@@ -7,6 +7,8 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_user_list.xml" value="0.22" />
         <entry key="app/src/main/res/layout/fragment_userlist.xml" value="0.38125" />
+        <entry key="app/src/main/res/layout/item_progress.xml" value="0.29739583333333336" />
+        <entry key="app/src/main/res/layout/item_retry.xml" value="0.33" />
         <entry key="app/src/main/res/layout/item_user.xml" value="0.25" />
       </map>
     </option>

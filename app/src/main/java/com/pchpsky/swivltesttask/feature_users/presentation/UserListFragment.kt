@@ -9,6 +9,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pchpsky.swivltesttask.R
 import com.pchpsky.swivltesttask.databinding.FragmentUserListBinding
+import com.pchpsky.swivltesttask.feature_users.presentation.list_adapter.UsersLoadStateAdapter
 import com.pchpsky.swivltesttask.feature_users.presentation.list_adapter.UsersRecyclerAdapter
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
@@ -47,7 +48,9 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
         super.onViewCreated(view, savedInstanceState)
         binding.userList.layoutManager = LinearLayoutManager(requireContext())
 
-        binding.userList.adapter = adapter
+        binding.userList.adapter = adapter.withLoadStateFooter(UsersLoadStateAdapter {
+            adapter.retry()
+        })
         lifecycleScope.launch {
             viewModel.users.collectLatest {
                 adapter.submitData(it)
