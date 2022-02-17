@@ -15,14 +15,14 @@ class UsersPagingSource(private val networkClient: UsersNetworkClient) : PagingS
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, User> {
-        val pageIndex = params.key ?: 1
+        val pageSince = params.key ?: 0
 
         return try {
-            val users = networkClient.users(pageIndex, params.loadSize)
+            val users = networkClient.users(pageSince, params.loadSize)
             LoadResult.Page(
                 data = users,
-                prevKey = if (pageIndex == 1) null else pageIndex - 1,
-                nextKey = pageIndex + 1
+                prevKey = null,
+                nextKey = users.last().id
             )
         } catch (exception: Exception) {
             LoadResult.Error(exception)

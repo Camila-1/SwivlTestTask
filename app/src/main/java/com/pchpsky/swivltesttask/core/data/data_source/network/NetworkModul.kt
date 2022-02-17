@@ -22,6 +22,7 @@ fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
 
 fun provideOkHttpClient(): OkHttpClient {
     return OkHttpClient().newBuilder()
+        .addInterceptor(GitHubInterceptor())
         .build()
 }
 

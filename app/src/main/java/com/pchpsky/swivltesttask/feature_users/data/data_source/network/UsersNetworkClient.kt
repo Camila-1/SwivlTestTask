@@ -7,5 +7,5 @@ import retrofit2.http.Query
 interface UsersNetworkClient {
 
     @GET("users")
-    suspend fun users(@Query("page")page: Int, @Query("per_page") pageSize: Int): List<User>
+    suspend fun users(@Query("since") since: Int, @Query("per_page") pageSize: Int): List<User>
 }
