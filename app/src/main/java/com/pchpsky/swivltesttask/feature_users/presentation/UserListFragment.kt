@@ -63,12 +63,6 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-
-    }
-
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

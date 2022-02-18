@@ -3,7 +3,10 @@ package com.pchpsky.swivltesttask
 import android.app.Application
 import com.pchpsky.swivltesttask.core.data.data_source.network.networkModule
 import com.pchpsky.swivltesttask.di.appModule
+import com.pchpsky.swivltesttask.feature_user_details.data.data_source.network.userDetailNetworkModule
+import com.pchpsky.swivltesttask.feature_user_details.data.repository.userDetailRepositoryModule
 import com.pchpsky.swivltesttask.feature_users.data.data_source.network.usersNetworkModule
+import com.pchpsky.swivltesttask.feature_users.data.repository.usersRepositoryModule
 import com.pchpsky.swivltesttask.feature_users.presentation.usersModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
@@ -22,7 +25,10 @@ class SwivlTestTaskApplication : Application() {
                 appModule,
                 networkModule,
                 usersModule,
-                usersNetworkModule
+                usersNetworkModule,
+                userDetailNetworkModule,
+                usersRepositoryModule,
+                userDetailRepositoryModule
             )
         }
     }

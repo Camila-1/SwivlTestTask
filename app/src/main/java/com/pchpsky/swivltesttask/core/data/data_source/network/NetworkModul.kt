@@ -12,7 +12,7 @@ val networkModule = module {
     single { provideRetrofit(get()) }
 }
 
-fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
+private fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
     return Retrofit.Builder()
         .baseUrl(BASE_URL)
         .addConverterFactory(MoshiConverterFactory.create())
@@ -20,7 +20,7 @@ fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         .build()
 }
 
-fun provideOkHttpClient(): OkHttpClient {
+private fun provideOkHttpClient(): OkHttpClient {
     return OkHttpClient().newBuilder()
         .addInterceptor(GitHubInterceptor())
         .build()

@@ -8,7 +8,6 @@ import kotlinx.coroutines.flow.Flow
 class GetUsers(private val repository: UsersRepository) {
 
     suspend operator fun invoke(): Flow<PagingData<User>> {
-        val pagingDataFlow = repository.gerUsers()
-        return pagingDataFlow
+        return repository.gerUsers()
     }
 }

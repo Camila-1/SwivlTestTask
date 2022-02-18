@@ -7,6 +7,6 @@ val usersNetworkModule = module {
     single { provideUsersNetworkClient(get()) }
 }
 
-fun provideUsersNetworkClient(retrofit: Retrofit): UsersNetworkClient {
+private fun provideUsersNetworkClient(retrofit: Retrofit): UsersNetworkClient {
     return retrofit.create(UsersNetworkClient::class.java)
 }
