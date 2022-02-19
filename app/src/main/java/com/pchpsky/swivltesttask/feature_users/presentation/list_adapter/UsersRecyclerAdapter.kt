@@ -10,7 +10,7 @@ import com.pchpsky.swivltesttask.feature_users.domain.model.UserListItem
 import com.pchpsky.swivltesttask.databinding.ItemUserBinding
 import com.squareup.picasso.Picasso
 
-class UsersRecyclerAdapter : PagingDataAdapter<UserListItem, UsersRecyclerAdapter.UsersViewHolder>(UserComparator) {
+class UsersRecyclerAdapter(private val onClick: (userName: String) -> Unit) : PagingDataAdapter<UserListItem, UsersRecyclerAdapter.UsersViewHolder>(UserComparator) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersViewHolder {
         val binding = ItemUserBinding
@@ -22,6 +22,7 @@ class UsersRecyclerAdapter : PagingDataAdapter<UserListItem, UsersRecyclerAdapte
 
     inner class UsersViewHolder(private val userListView: ItemUserBinding) : RecyclerView.ViewHolder(userListView.root) {
         fun bind(user: UserListItem) = with(userListView) {
+            root.setOnClickListener { onClick(user.login) }
             Picasso
                 .get()
                 .load(user.avatarUrl)

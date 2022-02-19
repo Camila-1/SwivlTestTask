@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pchpsky.swivltesttask.R
 import com.pchpsky.swivltesttask.databinding.FragmentUserListBinding
+import com.pchpsky.swivltesttask.feature_user_details.presentation.UserDetailFragment
 import com.pchpsky.swivltesttask.feature_users.presentation.list_adapter.UsersLoadStateAdapter
 import com.pchpsky.swivltesttask.feature_users.presentation.list_adapter.UsersRecyclerAdapter
 import kotlinx.coroutines.InternalCoroutinesApi
@@ -27,7 +29,7 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
     private val viewModel: UsersViewModelImpl by viewModel()
     private var _binding: FragmentUserListBinding? = null
     private val binding get() = _binding!!
-    private val adapter = UsersRecyclerAdapter()
+    private lateinit var adapter: UsersRecyclerAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,11 +49,16 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.userList.layoutManager = LinearLayoutManager(requireContext())
-
+        adapter = UsersRecyclerAdapter { userName ->
+            requireActivity().supportFragmentManager.commit {
+                setReorderingAllowed(true)
+                replace(R.id.fragment_container, UserDetailFragment.newInstance(userName))
+            }
+        }
         binding.userList.adapter = adapter.withLoadStateFooter(UsersLoadStateAdapter {
             adapter.retry()
         })
-        lifecycleScope.launch {
+        lifecycleScope.launchWhenStarted {
             viewModel.users.collectLatest {
                 adapter.submitData(it)
                 binding.swipeRefresh.isRefreshing = false
