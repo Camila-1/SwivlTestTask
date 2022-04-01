@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.navArgs
 import com.pchpsky.swivltesttask.R
 import com.pchpsky.swivltesttask.databinding.FragmentUserDetailBinding
 import com.squareup.picasso.Picasso
@@ -23,9 +24,9 @@ class UserDetailFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val userName = arguments?.getString("user_name")
+        val arguments: UserDetailFragmentArgs by navArgs()
         lifecycleScope.launchWhenCreated {
-            viewModel.getUserDetail(userName!!)
+            viewModel.getUserDetail(arguments.userName)
         }
     }
 

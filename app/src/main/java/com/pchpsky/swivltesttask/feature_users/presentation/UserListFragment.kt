@@ -5,17 +5,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.commit
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pchpsky.swivltesttask.R
 import com.pchpsky.swivltesttask.databinding.FragmentUserListBinding
-import com.pchpsky.swivltesttask.feature_user_details.presentation.UserDetailFragment
 import com.pchpsky.swivltesttask.feature_users.presentation.list_adapter.UsersLoadStateAdapter
 import com.pchpsky.swivltesttask.feature_users.presentation.list_adapter.UsersRecyclerAdapter
 import kotlinx.coroutines.InternalCoroutinesApi
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserListFragment : Fragment(R.layout.fragment_user_list) {
@@ -50,10 +48,8 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
         super.onViewCreated(view, savedInstanceState)
         binding.userList.layoutManager = LinearLayoutManager(requireContext())
         adapter = UsersRecyclerAdapter { userName ->
-            requireActivity().supportFragmentManager.commit {
-                setReorderingAllowed(true)
-                replace(R.id.fragment_container, UserDetailFragment.newInstance(userName))
-            }
+            val action = UserListFragmentDirections.actionUserListToUserDetail(userName)
+            findNavController().navigate(action)
         }
         binding.userList.adapter = adapter.withLoadStateFooter(UsersLoadStateAdapter {
             adapter.retry()

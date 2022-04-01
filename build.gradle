@@ -5,6 +5,14 @@ buildscript {
     ext.koin_version= "3.1.5"
     ext.retrofit_version = "2.9.0"
     ext.paging_version = "3.1.0"
+
+    repositories {
+        google()
+    }
+
+    dependencies {
+        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.4.1")
+    }
 }
 
 plugins {
