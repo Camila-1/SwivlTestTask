@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.pchpsky.swivltesttask.R
@@ -17,12 +18,6 @@ import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UserListFragment : Fragment(R.layout.fragment_user_list) {
-
-    companion object {
-        fun newInstance() = UserListFragment().apply {
-            arguments = Bundle().apply {}
-        }
-    }
 
     private val viewModel: UsersViewModelImpl by viewModel()
     private var _binding: FragmentUserListBinding? = null
@@ -49,7 +44,9 @@ class UserListFragment : Fragment(R.layout.fragment_user_list) {
         binding.userList.layoutManager = LinearLayoutManager(requireContext())
         adapter = UsersRecyclerAdapter { userName ->
             val action = UserListFragmentDirections.actionUserListToUserDetail(userName)
-            findNavController().navigate(action)
+            val extras = FragmentNavigatorExtras()
+            findNavController()
+                .navigate(action, extras)
         }
         binding.userList.adapter = adapter.withLoadStateFooter(UsersLoadStateAdapter {
             adapter.retry()

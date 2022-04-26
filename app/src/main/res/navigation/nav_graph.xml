@@ -8,16 +8,21 @@
     <fragment
         android:id="@+id/users_list_fragment"
         android:name="com.pchpsky.swivltesttask.feature_users.presentation.UserListFragment"
+        android:label="label_user_list"
         tools:layout="@layout/fragment_user_list">
         <action
             android:id="@+id/action_user_list_to_user_detail"
-            app:destination="@id/user_detail_fragment"/>
+            app:destination="@id/user_detail_fragment"
+            app:enterAnim="@animator/slide_in_right"
+            app:exitAnim="@animator/slide_out_left"
+            app:popEnterAnim="@android:anim/slide_in_left"
+            app:popExitAnim="@android:anim/slide_out_right" />
     </fragment>
 
     <fragment
         android:id="@+id/user_detail_fragment"
         android:name="com.pchpsky.swivltesttask.feature_user_details.presentation.UserDetailFragment"
-        android:label="Label detail"
+        android:label="label_detail"
         tools:layout="@layout/fragment_user_detail">
         <argument
             android:name="userName"
